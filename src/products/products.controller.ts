@@ -7,12 +7,12 @@ export class ProductsController {
   constructor(private readonly prodService: ProductsService) {}
 
   @Get()
-  index(): Product[] {
+  index() {
     return this.prodService.fetchAll();
   }
 
   @Get('/:id')
-  show(@Param('id') id: string): Product {
+  show(@Param('id') id: number) {
     return this.prodService.findOne(id);
   }
 
@@ -21,8 +21,7 @@ export class ProductsController {
     @Body('title') title: string,
     @Body('description') description: string,
     @Body('price') price: number,
-  ): any {
-    const generatedId = this.prodService.insert(title, description, price);
-    return { id: generatedId };
+  ) {
+    return this.prodService.insert(title, description, price);
   }
 }
